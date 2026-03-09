@@ -1,12 +1,23 @@
 package com.example.NEOAPP.modelos;
 
+import java.util.List;
+
+import com.example.NEOAPP.modelos.utils.Estados;
+import com.example.NEOAPP.modelos.utils.TipoDocumento;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-
+/*--------------------------------------------------------------------------------------------------------------------------------------------------------------
+name: Se pone en nombre de la variable 
+nullable: Es para decirle al cliente si es obligatorio o no el dato (true: Obligatorio & false:No es obligatorio)
+unique: Sirve para decir si la clase o variable es unico o no (true: Unico & False: No es obigatorio)
+length: Sirve para aplicar una longitud o numeros de datos a lo que el usuario va a ingresar
+------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
@@ -15,38 +26,45 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false, length = 100)
+    @Column(name = "nombreCompleto", nullable = false, unique = false, length = 50) 
     private String nombre;
 
-    @Column(nullable = false)
-    private String tipoDocumento;
+    @Column(nullable = false, unique = false)
+    TipoDocumento tipoDocumento;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "documento", nullable = false, unique = true, length = 15) 
     private String documento;
 
-    @Column(nullable = false)
+    @Column(name = "edad", nullable = true, unique = false)
     private Integer edad;
 
     // Atributos adicionales
 
-    @Column(nullable = false)
+    @Column(name = "CorreoElectronico", nullable = false, unique = true, length = 50)
     private String correo;
 
-    @Column(nullable = false)
+    @Column(name = "NumeroDeCelular", nullable = false, unique = true)
     private String numeroCelular;
 
-    @Column(nullable = false)
+    @Column(name = "Genero", nullable = false, unique = false)
     private String genero;
 
-    @Column(nullable = false)
-    private Boolean activo;
+    @Column(name = "Estado", nullable = false)
+    Estados activo; /*Se pone la variable Estado ya que al crear el paquete para Los tipos de estados, este se cambia*/
 
-    @Column(nullable = false)
+    @Column(name = "Ciudad", nullable = false, unique = false  )
     private String ciudad;
     
+    /*CREANDO LA PRIMERA RELACION CON LA TABLA GASTOS: 1 USUARIO - MUCHOS GASTOS*/
+    @OneToMany(mappedBy = "usuario")/*OneToMany sirve para la relacion que es de 1 a MUCHOS (Donde quedan la relacion de muchos se crea la llave foranea"FK")*/
+    private List <Gasto> gastos;
+
+    /*RELACION CON TABLA METODOPAGO: 1 USUARIO - MUCHOS METODOS DE PAGO*/
+    @OneToMany(mappedBy = "usuario")
+    private List <MetodoPago> metodoPagos;
+
     public Usuario() {
     }
-
 
     // Getters y Setters
 
@@ -66,11 +84,11 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public String getTipoDocumento() {
+    public TipoDocumento getTipoDocumento() {
         return tipoDocumento;
     }
 
-    public void setTipoDocumento(String tipoDocumento) {
+    public void setTipoDocumento(TipoDocumento tipoDocumento) {
         this.tipoDocumento = tipoDocumento;
     }
 
@@ -114,11 +132,11 @@ public class Usuario {
         this.genero = genero;
     }
 
-    public Boolean getActivo() {
+    public Estados getActivo() {
         return activo;
     }
 
-    public void setActivo(Boolean activo) {
+    public void setActivo(Estados activo) {
         this.activo = activo;
     }
 

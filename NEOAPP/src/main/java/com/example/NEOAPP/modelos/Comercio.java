@@ -1,11 +1,20 @@
 package com.example.NEOAPP.modelos;
 
+import org.hibernate.annotations.ManyToAny;
+
+import jakarta.persistence.JoinColumn;
+
 public class Comercio {
         //id, nit, nombre,actividad
         private Integer id;
         private String Nit;
         private String Nombre;
         private String Actividad;
+
+        /*RELACION CON TABLA GASTO: MUCHOS COMERCIOS - 1 GASTO*/
+        @ManyToAny
+        @JoinColumn (name = "fk_gasto", referencedColumnName = "id")
+        private Gasto gasto;
 
         //CONSTRUCTOR
         public Comercio() {

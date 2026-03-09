@@ -1,5 +1,7 @@
 package com.example.NEOAPP.modelos;
 
+import jakarta.persistence.JoinColumn;
+
 public class MetodoPago {
     //id, nombre, franquicia, estado(activo,inactivo),  descripcion 
     private Integer id;
@@ -7,6 +9,10 @@ public class MetodoPago {
     private String Franquicia;
     private Double Estado;
     private String Descripcion;
+
+    /*RELACION ENTRE METODOS DE PAGO Y USUARIOS*/
+    @JoinColumn (name = "fk_usuario", referencedColumnName = "id")
+    private MetodoPago metodoPago;
     
     //cONSTRUCTOR
     public MetodoPago() {
