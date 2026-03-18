@@ -20,7 +20,7 @@ length: Sirve para aplicar una longitud o numeros de datos a lo que el usuario v
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 @Entity
 @Table(name = "usuarios")
-public class Usuario {
+    public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
