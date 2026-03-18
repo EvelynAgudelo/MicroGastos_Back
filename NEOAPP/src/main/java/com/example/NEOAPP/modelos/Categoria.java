@@ -1,13 +1,13 @@
 package com.example.NEOAPP.modelos;
 
-import java.util.List;
+import org.hibernate.annotations.ManyToAny;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
@@ -42,8 +42,9 @@ public class Categoria {
     private Integer prioridad;
 
     //Una categoría tiene muchos gastos
-    @OneToMany(mappedBy = "categoria")
-    private List<Gasto> gastos;
+    @ManyToAny
+    @JoinColumn (name = "fk_gasto", referencedColumnName = "id")
+    private Gasto gasto;
 
     public Categoria() {
     }
@@ -112,13 +113,5 @@ public class Categoria {
 
     public void setPrioridad(Integer prioridad) {
         this.prioridad = prioridad;
-    }
-
-    public List<Gasto> getGastos() {
-        return gastos;
-    }
-
-    public void setGastos(List<Gasto> gastos) {
-        this.gastos = gastos;
     }
 }
