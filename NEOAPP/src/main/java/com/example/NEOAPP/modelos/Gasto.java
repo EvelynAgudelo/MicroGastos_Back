@@ -12,7 +12,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="usuarios")
+@Table(name="gastos")
 public class Gasto {
 
     //id,descripcion,fecha,valor,icono
@@ -31,8 +31,7 @@ public class Gasto {
     @JoinColumn(name = "fk_usuario", referencedColumnName = "id")
     private Usuario usuario;
 
-    private List<Categoria>categorias;
-
+    
     public Gasto() {
     }
 
