@@ -10,6 +10,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
+
 @Table (name = "gasto")
     public class Gasto {//id, descripcion, fecha, valor,icono 
         private Integer id;
@@ -75,5 +76,60 @@ import jakarta.persistence.Table;
 
         public void setIcono(String icono) {
             Icono = icono;
+
+@Table(name="gastos")
+public class Gasto {
+
+    //id,descripcion,fecha,valor,icono
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private String descripcion;
+    private LocalDate fecha;
+    private Double valor;
+    private String icono;
+
+
+    //relacion con tabla usuario
+    //1 gasto asociado a 1 solo usuario
+    @ManyToOne
+    @JoinColumn(name = "fk_usuario", referencedColumnName = "id")
+    private Usuario usuario;
+
+    
+    public Gasto() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+
+    public Double getValor() {
+        return valor;
+    }
+
+    public void setValor(Double valor) {
+        this.valor = valor;
+
     }
 }
